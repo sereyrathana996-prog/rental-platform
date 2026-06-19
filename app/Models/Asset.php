@@ -34,4 +34,13 @@ class Asset extends Model
             Booking::class
         );
     }
+    protected $fillable = [
+        'owner_id',
+        'category_id',
+        'title',
+        'description',
+        'price_per_day',
+        'deposit_amount',
+        'status'
+    ];
 }

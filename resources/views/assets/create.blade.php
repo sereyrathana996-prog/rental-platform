@@ -1,14 +1,60 @@
-
 <h1>Create Asset</h1>
 
-<form>
+<form action="{{ route('assets.store') }}" method="POST">
+
+@csrf
+
+<div>
+<label>Title</label>
 
 <input
 type="text"
-placeholder="Title">
+name="title">
 
-<button>
-Save
+</div>
+
+<br>
+
+<div>
+
+<label>Description</label>
+
+<textarea
+name="description">
+</textarea>
+
+</div>
+
+<br>
+
+<div>
+
+<label>Price Per Day</label>
+
+<input
+type="number"
+step="0.01"
+name="price_per_day">
+
+</div>
+
+<br>
+
+<div>
+
+<label>Deposit Amount</label>
+
+<input
+type="number"
+step="0.01"
+name="deposit_amount">
+
+</div>
+
+<br>
+
+<button type="submit">
+Save Asset
 </button>
 
 </form>

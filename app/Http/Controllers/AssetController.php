@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Asset;
+
 
 class AssetController extends Controller
 {
@@ -12,10 +14,15 @@ class AssetController extends Controller
      */
     public function index()
     {
-        return view(
-            'assets.index'
-        );
+        $assets = Asset::latest()
+            ->get();
 
+        return view(
+            'assets.index',
+            compact(
+                'assets'
+            )
+        );
     }
 
     /**
@@ -34,7 +41,42 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+            'title'=>'required',
+
+            'description'=>'required',
+
+            'price_per_day'=>'required',
+
+            'deposit_amount'=>'required'
+
+        ]);
+
+        Asset::create([
+
+            'owner_id'=>auth()->id(),
+
+            'category_id'=>1,
+
+            'title'=>$request->title,
+
+            'description'=>$request->description,
+
+            'price_per_day'=>$request->price_per_day,
+
+            'deposit_amount'=>$request->deposit_amount,
+
+            'status'=>'draft'
+
+        ]);
+
+        return redirect()
+            ->route('assets.index')
+            ->with(
+                'success',
+                'Asset created'
+            );
     }
 
     /**
