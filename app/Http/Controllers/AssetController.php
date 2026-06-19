@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Asset;
+use App\Models\Category;
 
 
 class AssetController extends Controller
@@ -30,10 +31,15 @@ class AssetController extends Controller
      */
     public function create()
     {
-        return view(
-            'assets.create'
-        );
+        $categories =
+            Category::all();
 
+        return view(
+            'assets.create',
+            compact(
+                'categories'
+            )
+        );
     }
 
     /**
@@ -44,6 +50,8 @@ class AssetController extends Controller
         $request->validate([
 
             'title'=>'required',
+
+            'category_id'=>'required',
 
             'description'=>'required',
 
@@ -57,7 +65,9 @@ class AssetController extends Controller
 
             'owner_id'=>auth()->id(),
 
-            'category_id'=>1,
+            'category_id'=>
+            $request
+            ->category_id,
 
             'title'=>$request->title,
 
