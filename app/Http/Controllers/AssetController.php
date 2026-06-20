@@ -57,27 +57,50 @@ class AssetController extends Controller
 
             'price_per_day'=>'required',
 
-            'deposit_amount'=>'required'
+            'deposit_amount'=>'required',
+
+            'photo'=>'nullable|image|max:2048',
 
         ]);
+
+        $imagePath = null;
+
+            if ($request->hasFile('photo')) {
+
+            $imagePath =
+            $request
+            ->file('photo')
+            ->store(
+                'assets',
+                'public'
+            );
+
+        }
 
         Asset::create([
 
             'owner_id'=>auth()->id(),
 
             'category_id'=>
-            $request
-            ->category_id,
+            $request->category_id,
 
-            'title'=>$request->title,
+            'title'=>
+            $request->title,
 
-            'description'=>$request->description,
+            'description'=>
+            $request->description,
 
-            'price_per_day'=>$request->price_per_day,
+            'price_per_day'=>
+            $request->price_per_day,
 
-            'deposit_amount'=>$request->deposit_amount,
+            'deposit_amount'=>
+            $request->deposit_amount,
 
-            'status'=>'draft'
+            'cover_photo'=>
+            $imagePath,
+
+            'status'=>
+            'draft'
 
         ]);
 

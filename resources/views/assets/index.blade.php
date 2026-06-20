@@ -10,8 +10,20 @@ Create Asset
 
 <div>
 
-{{ $asset->title }}
+<h3>{{ $asset->title }}</h3>
+
+@if($asset->cover_photo)
+
+<img
+src="{{ asset(
+'storage/'.$asset->cover_photo
+) }}"
+width="200">
+
+@endif
 
 </div>
+
+
 
 @endforeach

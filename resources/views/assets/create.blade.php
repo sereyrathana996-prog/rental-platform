@@ -1,10 +1,14 @@
 <h1>Create Asset</h1>
 
-<form action="{{ route('assets.store') }}" method="POST">
+<form
+action="{{ route('assets.store') }}"
+method="POST"
+enctype="multipart/form-data">
 
 @csrf
 
 <div>
+
 <label>Title</label>
 
 <input
@@ -27,7 +31,6 @@ name="description">
 
 <br>
 
-<div>
 
 <div>
 
@@ -55,6 +58,8 @@ value="{{ $category->id }}">
 
 <br>
 
+<div>
+
 <label>Price Per Day</label>
 
 <input
@@ -79,8 +84,21 @@ name="deposit_amount">
 
 <br>
 
+<div>
+
+<label>Photo</label>
+
+<input
+type="file"
+name="photo">
+
+</div>
+
+<br>
+
 <button type="submit">
 Save Asset
 </button>
 
 </form>
+

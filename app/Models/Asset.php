@@ -41,6 +41,7 @@ class Asset extends Model
         'description',
         'price_per_day',
         'deposit_amount',
+        'cover_photo',
         'status'
     ];
 }
