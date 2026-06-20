@@ -28,4 +28,11 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get(
+    '/my-assets',
+    [AssetController::class, 'mine']
+)->name('assets.mine');
+
+
+
 require __DIR__.'/auth.php';

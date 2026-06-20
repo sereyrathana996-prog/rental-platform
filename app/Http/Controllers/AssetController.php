@@ -130,6 +130,19 @@ class AssetController extends Controller
         );
     }
 
+    public function mine()
+    {
+        $assets = Asset::where(
+            'owner_id',
+            auth()->id()
+        )->get();
+
+        return view(
+            'assets.mine',
+            compact('assets')
+        );
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
