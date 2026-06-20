@@ -117,7 +117,17 @@ class AssetController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $asset =
+        Asset::findOrFail(
+            $id
+        );
+
+        return view(
+            'assets.show',
+            compact(
+                'asset'
+            )
+        );
     }
 
     /**

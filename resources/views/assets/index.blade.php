@@ -10,7 +10,15 @@ Create Asset
 
 <div>
 
-<h3>{{ $asset->title }}</h3>
+<h3><a
+href="{{ route(
+'assets.show',
+$asset->id
+) }}">
+
+{{ $asset->title }}
+
+</a></h3>
 
 @if($asset->cover_photo)
 
