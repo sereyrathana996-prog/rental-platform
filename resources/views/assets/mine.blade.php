@@ -45,6 +45,16 @@ View
 
 </a>
 
+<a
+href="{{ route(
+'assets.edit',
+$asset->id
+) }}">
+
+Edit
+
+</a>
+
 </div>
 
 <hr>

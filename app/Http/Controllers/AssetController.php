@@ -148,7 +148,27 @@ class AssetController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $asset =
+        Asset::findOrFail(
+        $id
+        );
+
+        $categories =
+        Category::all();
+
+        return view(
+
+        'assets.edit',
+
+        compact(
+
+        'asset',
+
+        'categories'
+
+        )
+
+        );
     }
 
     /**
@@ -156,7 +176,37 @@ class AssetController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $asset =
+        Asset::findOrFail(
+        $id
+        );
+
+
+        $asset
+        ->update([
+
+        'title'=>
+        $request
+        ->title,
+
+        'description'=>
+        $request
+        ->description,
+
+        'price_per_day'=>
+        $request
+        ->price_per_day
+
+        ]);
+
+
+        return redirect()
+
+        ->route(
+
+        'assets.mine'
+
+        );
     }
 
     /**
