@@ -16,6 +16,16 @@ Create New
 
 </h3>
 
+@if(session('success'))
+
+<div>
+
+{{ session('success') }}
+
+</div>
+
+@endif
+
 
 @if($asset->cover_photo)
 
@@ -54,6 +64,25 @@ $asset->id
 Edit
 
 </a>
+
+|
+
+<form
+    action="{{ route('assets.destroy', $asset->id) }}"
+    method="POST"
+    style="display:inline">
+
+    @csrf
+    @method('DELETE')
+
+    <button
+        onclick="return confirm('Delete this asset?')">
+
+        Delete
+
+    </button>
+
+</form>
 
 </div>
 

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Asset;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
 class AssetController extends Controller
@@ -214,6 +215,22 @@ class AssetController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+    $asset = Asset::findOrFail($id);
+
+    if ($asset->cover_photo) {
+
+        Storage::disk('public')
+            ->delete($asset->cover_photo);
+
+    }
+
+    $asset->delete();
+
+    return redirect()
+        ->route('assets.mine')
+        ->with(
+            'success',
+            'Asset deleted'
+        );
     }
 }
