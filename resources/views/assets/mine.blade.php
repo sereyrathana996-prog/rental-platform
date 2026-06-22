@@ -106,6 +106,44 @@ Status:
 
 </div>
 
+@if(
+$booking->status
+==
+'pending'
+)
+
+<form
+action="{{ route(
+'bookings.approve',
+$booking->id
+) }}"
+method="POST">
+
+@csrf
+
+<button>
+Approve
+</button>
+
+</form>
+
+<form
+action="{{ route(
+'bookings.reject',
+$booking->id
+) }}"
+method="POST">
+
+@csrf
+
+<button>
+Reject
+</button>
+
+</form>
+
+@endif
+
 <hr>
 
 @empty

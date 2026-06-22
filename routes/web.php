@@ -38,6 +38,16 @@ Route::middleware('auth')->group(function () {
         [BookingController::class, 'store']
     )->name('bookings.store');
 
+    Route::post(
+    '/bookings/{booking}/approve',
+    [BookingController::class, 'approve']
+    )->name('bookings.approve');
+
+    
+    Route::post(
+    '/bookings/{booking}/reject',
+    [BookingController::class, 'reject']
+    )->name('bookings.reject');
 
 });
 

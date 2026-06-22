@@ -85,4 +85,28 @@ class BookingController extends Controller
                 'assets.index'
             );
     }
+
+    public function approve(
+    Booking $booking
+    )
+    {
+        $booking->update([
+            'status' =>
+            'approved'
+        ]);
+
+        return back();
+    }
+
+    public function reject(
+    Booking $booking
+    )
+    {
+        $booking->update([
+            'status' =>
+            'rejected'
+        ]);
+
+        return back();
+    }
 }
