@@ -11,24 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function ($table){
+        Schema::create('bookings', function (Blueprint $table) {
 
         $table->id();
 
-        $table->foreignId('user_id')
-        ->constrained();
-
         $table->foreignId('asset_id')
-        ->constrained();
+            ->constrained()
+            ->cascadeOnDelete();
+
+        $table->foreignId('renter_id')
+            ->constrained('users')
+            ->cascadeOnDelete();
 
         $table->date('start_date');
 
         $table->date('end_date');
 
-        $table->decimal('total_amount',10,2);
+        $table->decimal(
+            'total_price',
+            10,
+            2
+        );
 
         $table->string('status')
-        ->default('pending');
+            ->default('pending');
 
         $table->timestamps();
 

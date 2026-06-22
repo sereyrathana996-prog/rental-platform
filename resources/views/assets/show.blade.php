@@ -54,6 +54,14 @@ Status:
 
 </p>
 
+<hr>
+
+<a href="{{ route('bookings.create', $asset->id) }}">
+
+Book Now
+
+</a>
+
 
 <a
 href="{{ route(

@@ -19,6 +19,13 @@ class Booking extends Model
             Asset::class
         );
     }
+    public function renter()
+    {
+        return $this->belongsTo(
+            User::class,
+            'renter_id'
+        );
+    }
 
     public function deposit()
     {
@@ -26,4 +33,20 @@ class Booking extends Model
             Deposit::class
         );
     }
+
+    protected $fillable = [
+
+    'asset_id',
+
+    'renter_id',
+
+    'start_date',
+
+    'end_date',
+
+    'total_price',
+
+    'status'
+
+    ];
 }

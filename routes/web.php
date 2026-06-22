@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\BookingController;
 
 
 Route::get('/', function () {
@@ -25,6 +26,18 @@ Route::middleware('auth')->group(function () {
         'assets',
         AssetController::class
     );
+
+    Route::get(
+        '/bookings/create/{asset}',
+        [BookingController::class, 'create']
+    )->name('bookings.create');
+
+
+    Route::post(
+        '/bookings/store/{asset}',
+        [BookingController::class, 'store']
+    )->name('bookings.store');
+
 
 });
 
