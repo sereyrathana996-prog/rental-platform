@@ -43,11 +43,18 @@ Route::middleware('auth')->group(function () {
     [BookingController::class, 'approve']
     )->name('bookings.approve');
 
-    
+
     Route::post(
     '/bookings/{booking}/reject',
     [BookingController::class, 'reject']
     )->name('bookings.reject');
+
+    Route::get(
+    '/my-bookings',
+    [BookingController::class, 'mine']
+    )->name(
+    'bookings.mine'
+    );
 
 });
 

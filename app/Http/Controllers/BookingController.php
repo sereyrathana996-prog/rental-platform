@@ -109,4 +109,24 @@ class BookingController extends Controller
 
         return back();
     }
+
+    public function mine()
+    {
+        $bookings =
+        Booking::where(
+            'renter_id',
+            auth()->id()
+        )
+        ->with(
+            'asset'
+        )
+        ->get();
+
+        return view(
+            'bookings.mine',
+            compact(
+                'bookings'
+            )
+        );
+    }
 }

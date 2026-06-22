@@ -21,6 +21,11 @@
                         :active="request()->routeIs('assets.mine')">
                         My Assets
                     </x-nav-link>
+                    <x-nav-link
+                        :href="route('bookings.mine')"
+                        :active="request()->routeIs('bookings.mine')">
+                        My Bookings
+                    </x-nav-link>
                 </div>
 
             </div>
@@ -85,6 +90,15 @@
                 :href="route('assets.mine')"
                 :active="request()->routeIs('assets.mine')">
                 My Assets
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link
+                :href="route(
+                'bookings.mine'
+                )">
+
+                My Bookings
+
             </x-responsive-nav-link>
 
         </div>
