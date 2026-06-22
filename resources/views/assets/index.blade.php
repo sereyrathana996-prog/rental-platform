@@ -20,6 +20,16 @@ $asset->id
 
 </a></h3>
 
+<a
+href="{{ route(
+'bookings.create',
+$asset->id
+) }}">
+
+Book Now
+
+</a>
+
 @if($asset->cover_photo)
 
 <img

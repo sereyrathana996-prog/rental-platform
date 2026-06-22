@@ -1,26 +1,17 @@
-<h1>
-
-Book Asset
-
-</h1>
-
+<h1>Book Asset</h1>
 
 <h3>
-
 {{ $asset->title }}
-
 </h3>
 
-
 <form
-method="POST"
 action="{{ route(
 'bookings.store',
 $asset->id
-) }}">
+) }}"
+method="POST">
 
 @csrf
-
 
 <div>
 
@@ -38,7 +29,6 @@ name="start_date">
 
 <br>
 
-
 <div>
 
 <label>
@@ -55,10 +45,9 @@ name="end_date">
 
 <br>
 
-
 <button>
 
-Confirm Booking
+Book
 
 </button>
 
