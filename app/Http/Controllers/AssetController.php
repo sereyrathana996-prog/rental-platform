@@ -136,7 +136,9 @@ class AssetController extends Controller
         $assets = Asset::where(
             'owner_id',
             auth()->id()
-        )->get();
+        )
+        ->with('bookings')
+        ->get();
 
         return view(
             'assets.mine',

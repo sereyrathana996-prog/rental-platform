@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asset;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 
@@ -36,6 +37,27 @@ class BookingController extends Controller
 
         ]);
 
+        $start =
+        Carbon::parse(
+        $request->start_date
+        );
+
+        $end =
+        Carbon::parse(
+        $request->end_date
+        );
+
+        $days =
+        $start->diffInDays(
+        $end
+        );
+
+        $total =
+        $days
+        *
+        $asset->price_per_day;
+
+
         Booking::create([
 
             'asset_id'=>
@@ -51,8 +73,7 @@ class BookingController extends Controller
             $request->end_date,
 
             'total_price'=>
-            $asset->price_per_day,
-
+            $total,
 
             'status'=>
             'pending'
