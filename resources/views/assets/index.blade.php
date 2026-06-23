@@ -1,64 +1,85 @@
 <h1>Assets</h1>
 
-<form>
+<form method="GET" action="{{ route('assets.index') }}">
 
-<input
-type="text"
-name="search"
-placeholder="Search asset">
+    <input
+        type="text"
+        name="search"
+        placeholder="Search"
+        value="{{ request('search') }}">
 
-<button>
+    <select name="category">
 
-Search
+        <option value="">
+            All Categories
+        </option>
 
-</button>
+        @foreach($categories as $category)
+
+            <option
+                value="{{ $category->id }}"
+                {{ request('category') == $category->id ? 'selected' : '' }}>
+
+                {{ $category->name }}
+
+            </option>
+
+        @endforeach
+
+    </select>
+
+    <button type="submit">
+        Filter
+    </button>
 
 </form>
 
 <hr>
 
 <a href="{{ route('assets.create') }}">
-Create Asset
+    Create Asset
 </a>
 
 <hr>
 
-@foreach($assets as $asset)
+@forelse($assets as $asset)
 
 <div>
 
-<h3><a
-href="{{ route(
-'assets.show',
-$asset->id
-) }}">
+    <h3>
 
-{{ $asset->title }}
+        <a href="{{ route('assets.show', $asset->id) }}">
 
-</a></h3>
+            {{ $asset->title }}
 
-<a
-href="{{ route(
-'bookings.create',
-$asset->id
-) }}">
+        </a>
 
-Book Now
+    </h3>
 
-</a>
+    <a href="{{ route('bookings.create', $asset->id) }}">
+        Book Now
+    </a>
 
-@if($asset->cover_photo)
+    <br><br>
 
-<img
-src="{{ asset(
-'storage/'.$asset->cover_photo
-) }}"
-width="200">
+    @if($asset->cover_photo)
 
-@endif
+        <img
+            src="{{ asset('storage/'.$asset->cover_photo) }}"
+            width="200">
+
+    @endif
+
+    <p>
+        ${{ $asset->price_per_day }}
+    </p>
 
 </div>
 
+<hr>
 
+@empty
 
-@endforeach
+<p>No assets found</p>
+
+@endforelse

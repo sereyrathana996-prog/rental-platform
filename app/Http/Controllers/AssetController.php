@@ -14,59 +14,39 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(
-        Request $request
-    )
+    public function index(Request $request)
     {
+        $query = Asset::query();
 
-        $assets =
-        Asset::query()
+        // search by title
+        if ($request->search) {
+            $query->where(
+                'title',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
 
-        ->when(
+        // filter category
+        if ($request->category) {
+            $query->where(
+                'category_id',
+                $request->category
+            );
+        }
 
-            $request->search,
+        $assets = $query->get();
 
-            function (
-                $query
-            )
-
-            use (
-                $request
-            ) {
-
-                $query->where(
-
-                    'title',
-
-                    'like',
-
-                    '%'
-                    .
-                    $request->search
-                    .
-                    '%'
-
-                );
-
-            }
-
-        )
-
-        ->get();
-
+        $categories = Category::all();
 
         return view(
-
             'assets.index',
-
             compact(
-                'assets'
+                'assets',
+                'categories'
             )
-
         );
-
     }
-
     /**
      * Show the form for creating a new resource.
      */
