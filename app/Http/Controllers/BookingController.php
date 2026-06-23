@@ -25,65 +25,125 @@ class BookingController extends Controller
     public function store(
     Request $request,
     Asset $asset
-    )
-    {
+    ) {
+
         $request->validate([
-
-            'start_date'=>
-            'required|date',
-
-            'end_date'=>
-            'required|date'
-
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ]);
 
-        $start =
-        Carbon::parse(
-        $request->start_date
+
+        // Prevent owner booking
+
+        if ($asset->owner_id == auth()->id()) {
+
+            return back()->with(
+                'error',
+                'You cannot book your own asset'
+            );
+
+        }
+
+
+        // Prevent double booking
+
+        $alreadyBooked = Booking::where(
+            'asset_id',
+            $asset->id
+        )
+
+        ->where(
+            'status',
+            'approved'
+        )
+
+        ->where(function ($query) use ($request) {
+
+            $query->whereBetween(
+                'start_date',
+                [
+                    $request->start_date,
+                    $request->end_date
+                ]
+            )
+
+            ->orWhereBetween(
+                'end_date',
+                [
+                    $request->start_date,
+                    $request->end_date
+                ]
+            );
+
+        })
+
+        ->exists();
+
+
+        if ($alreadyBooked) {
+
+            return back()->with(
+                'error',
+                'Asset unavailable'
+            );
+
+        }
+
+
+        // Calculate total
+
+        $start = Carbon::parse(
+            $request->start_date
         );
 
-        $end =
-        Carbon::parse(
-        $request->end_date
+        $end = Carbon::parse(
+            $request->end_date
         );
 
-        $days =
-        $start->diffInDays(
-        $end
+        $days = $start->diffInDays(
+            $end
         );
 
         $total =
-        $days
-        *
-        $asset->price_per_day;
+            $days *
+            $asset->price_per_day;
 
+
+        // Create booking
 
         Booking::create([
 
-            'asset_id'=>
+            'asset_id' =>
             $asset->id,
 
-            'renter_id'=>
+            'renter_id' =>
             auth()->id(),
 
-            'start_date'=>
+            'start_date' =>
             $request->start_date,
 
-            'end_date'=>
+            'end_date' =>
             $request->end_date,
 
-            'total_price'=>
+            'total_price' =>
             $total,
 
-            'status'=>
-            'pending'
+            'status' =>
+            'pending',
 
         ]);
 
+
         return redirect()
-            ->route(
-                'assets.index'
-            );
+
+        ->route(
+            'bookings.mine'
+        )
+
+        ->with(
+            'success',
+            'Booking created'
+        );
     }
 
     public function approve(

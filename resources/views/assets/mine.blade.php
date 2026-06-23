@@ -101,8 +101,27 @@ ${{ $booking->total_price }}
 
 <br>
 
-Status:
-{{ $booking->status }}
+@if($booking->status=='pending')
+
+<p>
+🟡 Pending
+</p>
+
+@elseif(
+$booking->status=='approved'
+)
+
+<p>
+🟢 Approved
+</p>
+
+@else
+
+<p>
+🔴 Rejected
+</p>
+
+@endif
 
 </div>
 

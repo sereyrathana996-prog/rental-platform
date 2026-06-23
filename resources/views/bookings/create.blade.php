@@ -4,6 +4,16 @@
 {{ $asset->title }}
 </h3>
 
+@if(session('error'))
+
+<div>
+
+{{ session('error') }}
+
+</div>
+
+@endif
+
 <form
 action="{{ route(
 'bookings.store',
