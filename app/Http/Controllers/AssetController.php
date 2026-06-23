@@ -14,17 +14,57 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(
+        Request $request
+    )
     {
-        $assets = Asset::latest()
-            ->get();
+
+        $assets =
+        Asset::query()
+
+        ->when(
+
+            $request->search,
+
+            function (
+                $query
+            )
+
+            use (
+                $request
+            ) {
+
+                $query->where(
+
+                    'title',
+
+                    'like',
+
+                    '%'
+                    .
+                    $request->search
+                    .
+                    '%'
+
+                );
+
+            }
+
+        )
+
+        ->get();
+
 
         return view(
+
             'assets.index',
+
             compact(
                 'assets'
             )
+
         );
+
     }
 
     /**

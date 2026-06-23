@@ -1,5 +1,22 @@
 <h1>Assets</h1>
 
+<form>
+
+<input
+type="text"
+name="search"
+placeholder="Search asset">
+
+<button>
+
+Search
+
+</button>
+
+</form>
+
+<hr>
+
 <a href="{{ route('assets.create') }}">
 Create Asset
 </a>

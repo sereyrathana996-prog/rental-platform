@@ -147,17 +147,36 @@ class BookingController extends Controller
     }
 
     public function approve(
-    Booking $booking
+        Booking $booking
     )
     {
+
         $booking->update([
+
             'status' =>
             'approved'
+
         ]);
 
-        return back();
-    }
 
+        $booking
+        ->asset
+        ->update([
+
+            'status' =>
+            'rented'
+
+        ]);
+
+
+        return back()
+
+        ->with(
+            'success',
+            'Booking approved'
+        );
+
+    }
     public function reject(
     Booking $booking
     )

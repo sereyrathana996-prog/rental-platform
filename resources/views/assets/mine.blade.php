@@ -34,6 +34,20 @@ Price:
 ${{ $asset->price_per_day }}
 </p>
 
+@if($asset->status=='available')
+
+<p>
+🟢 Available
+</p>
+
+@else
+
+<p>
+🔴 Rented
+</p>
+
+@endif
+
 <a
 href="{{ route(
 'assets.show',
