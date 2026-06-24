@@ -11,11 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $assets =
-        Asset::where(
-            'owner_id',
-            auth()->id()
-        )->count();
+        $totalAssets =
+        Asset::count();
 
         $bookings =
         Booking::count();
@@ -37,7 +34,7 @@ class DashboardController extends Controller
         return view(
             'dashboard',
             compact(
-                'assets',
+                'totalAssets',
                 'bookings',
                 'approved',
                 'revenue'

@@ -1,107 +1,163 @@
-<h1>Assets</h1>
+<x-app-layout>
 
-<form method="GET" action="{{ route('assets.index') }}">
+<div class="max-w-7xl mx-auto p-8">
+
+```
+<h1 class="text-4xl font-bold mb-8">
+    Assets
+</h1>
+
+
+{{-- Filter --}}
+<form class="flex gap-4 mb-8">
 
     <input
         type="text"
         name="search"
-        placeholder="Search"
-        value="{{ request('search') }}">
+        value="{{ request('search') }}"
+        placeholder="Search assets..."
+        class="border rounded-lg px-4 py-2 w-80"
+    >
 
-    <select name="category">
+    <select
+        name="category"
+        class="border rounded-lg px-4 py-2"
+    >
 
         <option value="">
             All Categories
         </option>
 
-        @foreach($categories as $category)
+        @foreach ($categories as $category)
 
             <option
                 value="{{ $category->id }}"
-                {{ request('category') == $category->id ? 'selected' : '' }}>
-
+                {{ request('category') == $category->id ? 'selected' : '' }}
+            >
                 {{ $category->name }}
-
             </option>
 
         @endforeach
 
     </select>
 
-    <button type="submit">
+    <button
+        class="bg-blue-600 text-white px-6 rounded-lg"
+    >
         Filter
     </button>
 
 </form>
 
-<hr>
 
-<a href="{{ route('assets.create') }}">
+
+{{-- Create --}}
+<a
+    href="{{ route('assets.create') }}"
+    class="
+        inline-block
+        mb-8
+        bg-green-600
+        text-white
+        px-5
+        py-3
+        rounded-lg
+    "
+>
     Create Asset
 </a>
 
-<hr>
 
-@forelse($assets as $asset)
 
-<div>
+{{-- Assets --}}
+<div
+    class="
+        grid
+        grid-cols-1
+        md:grid-cols-2
+        lg:grid-cols-3
+        gap-8
+    "
+>
 
-    <h3>
+    @forelse ($assets as $asset)
 
-        <a href="{{ route('assets.show', $asset->id) }}">
+        <div
+            class="
+                bg-white
+                rounded-xl
+                shadow
+                overflow-hidden
+            "
+        >
 
-            {{ $asset->title }}
+            @if ($asset->cover_photo)
 
-        </a>
+                <img
+                    src="{{ asset('storage/' . $asset->cover_photo) }}"
+                    class="w-full h-60 object-cover"
+                >
 
-    </h3>
+            @endif
 
-    @if(
-    $asset->status
-    ==
-    'available'
-    )
 
-    <a
-    href="{{ route(
-    'bookings.create',
-    $asset->id
-    ) }}">
+            <div class="p-5">
 
-    Book Now
+                <h2 class="text-xl font-bold">
+                    {{ $asset->title }}
+                </h2>
 
-    </a>
+                <p class="text-green-600 text-lg mt-2">
+                    ${{ $asset->price_per_day }}
+                </p>
 
-    @else
 
-    <p>
+                <div class="flex gap-3 mt-5">
 
-    Already rented
+                    <a
+                        href="{{ route('assets.show', $asset->id) }}"
+                        class="
+                            bg-blue-500
+                            text-white
+                            px-4
+                            py-2
+                            rounded
+                        "
+                    >
+                        View
+                    </a>
 
-    </p>
 
-    @endif
+                    <a
+                        href="{{ route('bookings.create', $asset->id) }}"
+                        class="
+                            bg-green-500
+                            text-white
+                            px-4
+                            py-2
+                            rounded
+                        "
+                    >
+                        Book
+                    </a>
 
-    <br><br>
+                </div>
 
-    @if($asset->cover_photo)
+            </div>
 
-        <img
-            src="{{ asset('storage/'.$asset->cover_photo) }}"
-            width="200">
+        </div>
 
-    @endif
+    @empty
 
-    <p>
-        ${{ $asset->price_per_day }}
-    </p>
+        <p class="text-gray-500">
+            No assets found
+        </p>
+
+    @endforelse
+
+</div>
+```
 
 </div>
 
-<hr>
-
-@empty
-
-<p>No assets found</p>
-
-@endforelse
+</x-app-layout>
