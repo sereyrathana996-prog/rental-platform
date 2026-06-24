@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -63,6 +64,14 @@ Route::get(
     [AssetController::class, 'mine']
 )->name('assets.mine');
 
+Route::get(
+'/dashboard',
+[DashboardController::class,'index']
+)
+
+->middleware('auth')
+
+->name('dashboard');
 
 
 require __DIR__.'/auth.php';
