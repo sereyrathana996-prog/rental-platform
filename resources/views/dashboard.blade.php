@@ -1,103 +1,115 @@
 <x-app-layout>
 
-    <x-slot name="header">
+<x-slot name="header">
 
-        <h2>
+<h2 class="font-bold text-2xl">
 
-            Dashboard
+Dashboard
 
-        </h2>
+</h2>
 
-    </x-slot>
-
-
-    <div class="py-12">
-
-        <div class="max-w-7xl mx-auto">
-
-            <div>
-
-                <h3>
-
-                    Total Assets:
-                    {{ $assets }}
-
-                </h3>
-
-                <hr>
-
-                <br>
+</x-slot>
 
 
-                <h3>
+<div class="p-8">
 
-                    Total Bookings:
-                    {{ $bookings }}
-
-                </h3>
-
-                <hr>
-
-                <br>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
 
-                <h3>
+<div class="bg-white rounded-xl shadow p-6">
 
-                    Approved Bookings:
-                    {{ $approved }}
+<p class="text-gray-500">
+Total Assets
+</p>
 
-                </h3>
+<h1 class="text-4xl font-bold">
 
-                <hr>
+{{ $assets }}
 
-                <br>
+</h1>
+
+</div>
 
 
-                <h3>
+<div class="bg-white rounded-xl shadow p-6">
 
-                    Revenue:
-                    $
-                    {{ $revenue }}
+<p class="text-gray-500">
+Bookings
+</p>
 
-                </h3>
-                <hr>
+<h1 class="text-4xl font-bold">
 
-                <br>
+{{ $bookings }}
 
-                <a href="{{ route('assets.index') }}">
+</h1>
 
-                Browse Assets
+</div>
 
-                </a>
 
-                <br><br>
+<div class="bg-white rounded-xl shadow p-6">
 
-                <a href="{{ route('assets.mine') }}">
+<p class="text-gray-500">
+Approved
+</p>
 
-                My Assets
+<h1 class="text-4xl font-bold">
 
-                </a>
+{{ $approved }}
 
-                <br><br>
+</h1>
 
-                <a href="{{ route('bookings.mine') }}">
+</div>
 
-                My Bookings
 
-                </a>
+<div class="bg-white rounded-xl shadow p-6">
 
-                <br><br>
+<p class="text-gray-500">
+Revenue
+</p>
 
-                <a href="{{ route('assets.create') }}">
+<h1 class="text-4xl font-bold">
 
-                Create New Asset
+${{ $revenue }}
 
-                </a>
+</h1>
 
-            </div>
+</div>
 
-        </div>
 
-    </div>
+</div>
+
+
+<div class="mt-10 space-x-4">
+
+<a
+href="{{ route('assets.index') }}"
+class="bg-blue-500 text-white px-5 py-3 rounded">
+
+Browse Assets
+
+</a>
+
+
+<a
+href="{{ route('assets.mine') }}"
+class="bg-green-500 text-white px-5 py-3 rounded">
+
+My Assets
+
+</a>
+
+
+<a
+href="{{ route('bookings.mine') }}"
+class="bg-purple-500 text-white px-5 py-3 rounded">
+
+My Bookings
+
+</a>
+
+
+</div>
+
+</div>
 
 </x-app-layout>
