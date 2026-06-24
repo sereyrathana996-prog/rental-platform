@@ -147,7 +147,7 @@ class BookingController extends Controller
     }
 
     public function approve(
-        Booking $booking
+    Booking $booking
     )
     {
 
@@ -169,14 +169,9 @@ class BookingController extends Controller
         ]);
 
 
-        return back()
-
-        ->with(
-            'success',
-            'Booking approved'
-        );
-
+        return back();
     }
+
     public function reject(
     Booking $booking
     )

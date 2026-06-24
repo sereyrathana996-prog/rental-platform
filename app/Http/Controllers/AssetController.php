@@ -14,42 +14,7 @@ class AssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        $query = Asset::query();
 
-        // search by title
-        if ($request->search) {
-            $query->where(
-                'title',
-                'like',
-                '%' . $request->search . '%'
-            );
-        }
-
-        // filter category
-        if ($request->category) {
-            $query->where(
-                'category_id',
-                $request->category
-            );
-        }
-
-        $assets = $query->get();
-
-        $categories = Category::all();
-
-        return view(
-            'assets.index',
-            compact(
-                'assets',
-                'categories'
-            )
-        );
-    }
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories =
@@ -58,6 +23,53 @@ class AssetController extends Controller
         return view(
             'assets.create',
             compact(
+                'categories'
+            )
+        );
+    }
+
+    public function index(Request $request)
+    {
+        $assets = Asset::query();
+
+        if ($request->search) {
+
+            $assets->where(
+                'title',
+                'like',
+                '%'.$request->search.'%'
+            );
+
+        }
+
+        if ($request->category) {
+
+            $assets->where(
+                'category_id',
+                $request->category
+            );
+
+        }
+
+
+        $assets = $assets
+
+            ->where(
+                'status',
+                'available'
+            )
+
+            ->get();
+
+
+        $categories =
+            Category::all();
+
+
+        return view(
+            'assets.index',
+            compact(
+                'assets',
                 'categories'
             )
         );

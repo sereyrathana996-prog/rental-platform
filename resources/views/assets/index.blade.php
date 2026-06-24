@@ -56,9 +56,31 @@
 
     </h3>
 
-    <a href="{{ route('bookings.create', $asset->id) }}">
-        Book Now
+    @if(
+    $asset->status
+    ==
+    'available'
+    )
+
+    <a
+    href="{{ route(
+    'bookings.create',
+    $asset->id
+    ) }}">
+
+    Book Now
+
     </a>
+
+    @else
+
+    <p>
+
+    Already rented
+
+    </p>
+
+    @endif
 
     <br><br>
 
