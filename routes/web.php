@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReviewController;
 
 
 Route::get('/', function () {
@@ -63,6 +64,13 @@ Route::middleware('auth')->group(function () {
     [BookingController::class, 'mine']
     )->name(
     'bookings.mine'
+    );
+
+    Route::post(
+    '/reviews/{asset}',
+    [ReviewController::class,'store']
+    )->name(
+    'reviews.store'
     );
 
 });

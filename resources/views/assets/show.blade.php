@@ -153,6 +153,138 @@ Book Now
 
 </div>
 
+<hr class="my-10">
+
+<h2
+class="
+text-3xl
+font-bold
+mb-6
+">
+
+Reviews
+
+</h2>
+
+
+<form
+action="{{ route('reviews.store',$asset->id) }}"
+method="POST"
+>
+
+@csrf
+
+<input
+type="hidden"
+name="booking_id"
+value="{{ $asset->bookings->first()?->id }}"
+>
+
+
+<select
+name="rating"
+class="
+border
+p-3
+rounded
+w-full
+mb-4
+">
+
+<option value="">
+
+Rating
+
+</option>
+
+<option value="5">
+⭐⭐⭐⭐⭐
+</option>
+
+<option value="4">
+⭐⭐⭐⭐
+</option>
+
+<option value="3">
+⭐⭐⭐
+</option>
+
+<option value="2">
+⭐⭐
+</option>
+
+<option value="1">
+⭐
+</option>
+
+</select>
+
+
+<textarea
+name="comment"
+rows="4"
+class="
+w-full
+border
+rounded
+p-4
+mb-4
+"
+placeholder="Write review..."
+></textarea>
+
+
+<button
+class="
+bg-blue-600
+text-white
+px-6
+py-3
+rounded
+">
+
+Submit Review
+
+</button>
+
+</form>
+
+@foreach($asset->reviews as $review)
+
+<div
+class="
+mt-6
+border-t
+pt-6
+">
+
+<p>
+
+⭐ {{ $review->rating }}/5
+
+</p>
+
+<p>
+
+{{ $review->comment }}
+
+</p>
+
+<p
+class="
+text-sm
+text-gray-500
+mt-2
+">
+
+{{ $review->user->name }}
+
+</p>
+
+</div>
+
+@endforeach
+
 </div>
 
 </x-app-layout>

@@ -11,17 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function ($table){
+        Schema::create('reviews', function ($table) {
 
-        $table->id();
+            $table->id();
 
-        $table->foreignId('booking_id');
+            $table->foreignId('asset_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-        $table->integer('rating');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-        $table->text('comment');
+            $table->integer('rating');
 
-        $table->timestamps();
+            $table->text('comment');
+
+            $table->timestamps();
 
         });
     }

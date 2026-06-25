@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Booking;
 
 class Asset extends Model
 {
@@ -44,4 +45,16 @@ class Asset extends Model
         'cover_photo',
         'status'
     ];
+
+    public function reviews()
+    {
+        return $this->hasManyThrough(
+            Review::class,
+            Booking::class,
+            'asset_id',
+            'booking_id',
+            'id',
+            'id'
+        );
+    }
 }

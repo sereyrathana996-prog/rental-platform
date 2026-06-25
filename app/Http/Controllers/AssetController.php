@@ -146,8 +146,13 @@ class AssetController extends Controller
     public function show(string $id)
     {
         $asset =
-        Asset::findOrFail(
-            $id
+        Asset::with(
+        [
+        'reviews'
+        ]
+        )
+        ->findOrFail(
+        $id
         );
 
         return view(
