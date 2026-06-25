@@ -59,6 +59,76 @@ ${{ $asset->price_per_day }}
 
 </div>
 
+@if($bookedDates->count())
+
+<div
+class="
+mb-8
+bg-red-50
+border
+border-red-200
+rounded-xl
+p-5
+">
+
+<h3
+class="
+font-bold
+text-red-700
+mb-3
+">
+
+Unavailable Dates
+
+</h3>
+
+@foreach($bookedDates as $booking)
+
+<p>
+
+{{ $booking->start_date }}
+
+→
+
+{{ $booking->end_date }}
+
+</p>
+
+@endforeach
+
+</div>
+
+@endif
+@if($errors->any())
+
+<div
+class="
+bg-red-100
+text-red-700
+p-4
+rounded-xl
+mb-6
+">
+
+<ul>
+
+@foreach($errors->all() as $error)
+
+<li>
+
+{{ $error }}
+
+</li>
+
+@endforeach
+
+</ul>
+
+</div>
+
+@endif
+
+
 <form
 action="{{ route('bookings.store',$asset->id) }}"
 method="POST"

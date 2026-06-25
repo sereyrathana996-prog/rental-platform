@@ -15,9 +15,22 @@ class BookingController extends Controller
     {
         $asset = Asset::findOrFail($assetId);
 
+        $bookedDates = Booking::where(
+            'asset_id',
+            $asset->id
+        )
+        ->where(
+            'status',
+            'approved'
+        )
+        ->get();
+
         return view(
             'bookings.create',
-            compact('asset')
+            compact(
+                'asset',
+                'bookedDates'
+            )
         );
     }
 
@@ -27,10 +40,38 @@ class BookingController extends Controller
     Asset $asset
     ) {
 
-        $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-        ]);
+    $request->validate(
+
+    [
+
+    'start_date'=>
+
+    'required|date',
+
+    'end_date'=>
+
+    'required|date|after:start_date'
+
+    ],
+
+    [
+
+    'start_date.required'=>
+
+    'Please select start date',
+
+    'end_date.required'=>
+
+    'Please select end date',
+
+    'end_date.after'=>
+
+    'End date must be after start date'
+
+    ]
+
+    );
+
 
 
         // Prevent owner booking
