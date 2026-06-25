@@ -123,6 +123,14 @@
                 :href="route('dashboard')"
                 :active="request()->routeIs('dashboard')">
                 Dashboard
+                <x-nav-link
+                :href="route('bookings.mine')"
+                :active="request()->routeIs('bookings.mine')"
+                >
+
+                My Bookings
+
+                </x-nav-link>
             </x-responsive-nav-link>
 
             <x-responsive-nav-link

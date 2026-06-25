@@ -1,66 +1,123 @@
-<h1>My Bookings</h1>
+<x-app-layout>
 
-<a href="{{ route('assets.index') }}">
-    Browse Assets
-</a>
+<div class="max-w-7xl mx-auto p-8">
 
-<hr>
+<h1
+class="
+text-4xl
+font-bold
+mb-8
+"
+>
+
+My Bookings
+
+</h1>
+
+
+<div
+class="
+grid
+grid-cols-1
+md:grid-cols-2
+gap-6
+"
+>
 
 @forelse($bookings as $booking)
 
-<div>
+<div
+class="
+bg-white
+rounded-2xl
+shadow
+overflow-hidden
+"
+>
 
-    <h3>
-        {{ $booking->asset->title }}
-    </h3>
+@if($booking->asset->cover_photo)
 
-    <p>
-        Start:
-        {{ $booking->start_date }}
-    </p>
+<img
+src="{{ asset('storage/'.$booking->asset->cover_photo) }}"
+class="
+w-full
+h-56
+object-cover
+">
 
-    <p>
-        End:
-        {{ $booking->end_date }}
-    </p>
+@endif
 
-    <p>
-        Total:
-        ${{ $booking->total_price }}
-    </p>
 
-    <p>
-    @if($booking->status=='pending')
+<div class="p-6">
 
-    <p>
-    🟡 Pending
-    </p>
+<h2
+class="
+text-2xl
+font-bold
+"
+>
 
-    @elseif(
-    $booking->status=='approved'
-    )
+{{ $booking->asset->title }}
 
-    <p>
-    🟢 Approved
-    </p>
+</h2>
 
-    @else
 
-    <p>
-    🔴 Rejected
-    </p>
+<p class="mt-3">
 
-    @endif
-    </p>
+{{ $booking->start_date }}
+
+→
+
+{{ $booking->end_date }}
+
+</p>
+
+
+<p
+class="
+text-blue-600
+font-bold
+mt-2
+"
+>
+
+${{ $booking->total_price }}
+
+</p>
+
+
+<span
+class="
+inline-block
+mt-4
+px-4
+py-2
+rounded-full
+bg-yellow-100
+text-yellow-700
+"
+>
+
+{{ $booking->status }}
+
+</span>
 
 </div>
 
-<hr>
+</div>
 
 @empty
 
 <p>
+
 No bookings yet
+
 </p>
 
 @endforelse
+
+</div>
+
+</div>
+
+</x-app-layout>

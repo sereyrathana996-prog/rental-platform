@@ -203,4 +203,5 @@ class BookingController extends Controller
             )
         );
     }
+
 }
