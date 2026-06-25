@@ -4,11 +4,15 @@
 
 <div
 class="
+bg-white
+rounded-3xl
+shadow
+overflow-hidden
 grid
-grid-cols-1
-lg:grid-cols-2
-gap-10
-">
+md:grid-cols-2
+gap-8
+"
+>
 
 <div>
 
@@ -18,8 +22,6 @@ gap-10
 src="{{ asset('storage/'.$asset->cover_photo) }}"
 class="
 w-full
-rounded-2xl
-shadow
 h-[500px]
 object-cover
 ">
@@ -28,7 +30,7 @@ object-cover
 
 </div>
 
-<div>
+<div class="p-8">
 
 <h1
 class="
@@ -43,26 +45,10 @@ font-bold
 
 <p
 class="
-text-gray-600
-mt-6
-"
->
-
-{{ $asset->description }}
-
-</p>
-
-<div
-class="
-mt-8
-"
->
-
-<p
-class="
-text-4xl
-font-bold
 text-blue-600
+text-3xl
+font-bold
+mt-5
 "
 >
 
@@ -70,8 +56,8 @@ ${{ $asset->price_per_day }}
 
 <span
 class="
-text-lg
 text-gray-500
+text-lg
 "
 
 >
@@ -82,44 +68,73 @@ text-gray-500
 
 </p>
 
-</div>
+<div class="mt-8 space-y-3">
 
-<div
-class="
-mt-6
-"
->
+<p>
 
-<span
-class="
-bg-green-100
-text-green-700
-px-4
-py-2
-rounded-full
-"
+Category:
 
->
+{{ $asset->category->name }}
 
-{{ $asset->status }}
+</p>
 
-</span>
+<p>
+
+Status:
+
+{{ ucfirst($asset->status) }}
+
+</p>
 
 </div>
 
-<div
+@if($asset->description)
+
+<div class="mt-8">
+
+<h2 class="font-bold text-xl">
+
+Description
+
+</h2>
+
+<p class="mt-3">
+
+{{ $asset->description }}
+
+</p>
+
+</div>
+
+@endif
+
+<div class="mt-10">
+
+@if($asset->status=='rented')
+
+<button
+disabled
 class="
-mt-10
-flex
-gap-4
-">
+bg-gray-300
+px-8
+py-4
+rounded-xl
+"
+
+>
+
+Unavailable
+
+</button>
+
+@else
 
 <a
 href="{{ route('bookings.create',$asset->id) }}"
 class="
 bg-blue-600
 text-white
-px-6
+px-8
 py-4
 rounded-xl
 "
@@ -130,20 +145,7 @@ Book Now
 
 </a>
 
-<a
-href="{{ route('assets.index') }}"
-class="
-bg-gray-200
-px-6
-py-4
-rounded-xl
-"
-
->
-
-Back
-
-</a>
+@endif
 
 </div>
 
