@@ -204,4 +204,46 @@ class BookingController extends Controller
         );
     }
 
+
+    public function incoming()
+    {
+        $bookings = Booking::whereHas(
+        'asset',
+
+            function ($query) {
+
+                $query->where(
+                    'owner_id',
+                    auth()->id()
+                );
+
+            }
+
+        )
+
+        ->with([
+            'asset',
+            'renter'
+        ])
+
+        ->latest()
+
+        ->get();
+
+
+        return view(
+
+            'bookings.incoming',
+
+            compact(
+                'bookings'
+            )
+
+        );
+
+    }
+
+
+    
+
 }

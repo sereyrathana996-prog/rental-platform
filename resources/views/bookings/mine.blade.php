@@ -72,6 +72,14 @@ font-bold
 
 </p>
 
+<p class="mt-2">
+
+{{ \Carbon\Carbon::parse($booking->start_date)->diffInDays($booking->end_date) }}
+
+days
+
+</p>
+
 
 <p
 class="
@@ -93,12 +101,19 @@ mt-4
 px-4
 py-2
 rounded-full
-bg-yellow-100
-text-yellow-700
-"
->
 
-{{ $booking->status }}
+@if($booking->status=='approved')
+bg-green-100 text-green-700
+
+@elseif($booking->status=='rejected')
+bg-red-100 text-red-700
+
+@else
+bg-yellow-100 text-yellow-700
+@endif
+">
+
+{{ ucfirst($booking->status) }}
 
 </span>
 

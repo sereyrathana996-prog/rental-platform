@@ -52,14 +52,9 @@ class AssetController extends Controller
         }
 
 
-        $assets = $assets
-
-            ->where(
-                'status',
-                'available'
-            )
-
-            ->get();
+        $assets =
+        Asset::query()
+        ->get();
 
 
         $categories =

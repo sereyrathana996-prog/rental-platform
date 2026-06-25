@@ -107,21 +107,42 @@
         </a>
 
 
-        <a
-            href="{{ route('bookings.create', $asset->id) }}"
+        @if($asset->status == 'rented')
+
+        <button
+            disabled
             class="
-                flex-1
-                text-center
-                bg-blue-600
-                text-white
-                py-3
-                rounded-xl
-            "
-        >
+            bg-gray-300
+            text-gray-600
+            px-4
+            py-2
+            rounded
+            cursor-not-allowed
+            ">
+
+            Unavailable
+
+        </button>
+
+            @else
+
+            <a
+            href="{{ route('bookings.create',$asset->id) }}"
+            class="
+            bg-green-500
+            text-white
+            px-4
+            py-2
+            rounded
+            hover:bg-green-600
+            ">
 
             Book
 
-        </a>
+            </a>
+
+        @endif
+
 
     </div>
 

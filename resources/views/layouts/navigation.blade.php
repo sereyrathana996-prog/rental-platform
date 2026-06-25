@@ -28,32 +28,45 @@
                     gap-8
                     ml-10
                     ">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
-                    class="
-                    font-semibold
-                    hover:text-blue-600
-                    ">
-                    {{ __('Dashboard') }}
+                    <x-nav-link
+                        :href="route('dashboard')"
+                        :active="request()->routeIs('dashboard')">
+
+                        Dashboard
+
                     </x-nav-link>
+
+
+                    @if(auth()->user()->email == 'admin@example.com')
+
                     <x-nav-link
                         :href="route('assets.mine')"
-                        :active="request()->routeIs('assets.mine')"
-                        
-                        class="
-                        font-semibold
-                        hover:text-blue-600
-                        ">
+                        :active="request()->routeIs('assets.mine')">
+
                         My Assets
+
                     </x-nav-link>
+
+
+                    <x-nav-link
+                        :href="route('bookings.incoming')"
+                        :active="request()->routeIs('bookings.incoming')">
+
+                        Incoming Bookings
+
+                    </x-nav-link>
+
+                    @else
+
                     <x-nav-link
                         :href="route('bookings.mine')"
-                        :active="request()->routeIs('bookings.mine')"
-                        class="
-                        font-semibold
-                        hover:text-blue-600
-                        ">
+                        :active="request()->routeIs('bookings.mine')">
+
                         My Bookings
+
                     </x-nav-link>
+
+                    @endif
                 </div>
 
             </div>
@@ -116,63 +129,53 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <!-- Responsive Navigation Menu -->
+    <div :class="{ 'block': open, 'hidden': !open }"
+    class="hidden sm:hidden">
+
         <div class="pt-2 pb-3 space-y-1">
 
             <x-responsive-nav-link
                 :href="route('dashboard')"
                 :active="request()->routeIs('dashboard')">
+
                 Dashboard
-                <x-nav-link
-                :href="route('bookings.mine')"
-                :active="request()->routeIs('bookings.mine')"
-                >
-
-                My Bookings
-
-                </x-nav-link>
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link
-                :href="route('assets.mine')"
-                :active="request()->routeIs('assets.mine')">
-                My Assets
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link
-                :href="route(
-                'bookings.mine'
-                )">
-
-                My Bookings
 
             </x-responsive-nav-link>
 
-        </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
+            @if(auth()->user()->email == 'admin@example.com')
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                <x-responsive-nav-link
+                    :href="route('assets.mine')"
+                    :active="request()->routeIs('assets.mine')">
+
+                    My Assets
+
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
+                <x-responsive-nav-link
+                    :href="route('bookings.incoming')"
+                    :active="request()->routeIs('bookings.incoming')">
+
+                    Incoming Bookings
+
+                </x-responsive-nav-link>
+
+            @else
+
+                <x-responsive-nav-link
+                    :href="route('bookings.mine')"
+                    :active="request()->routeIs('bookings.mine')">
+
+                    My Bookings
+
+                </x-responsive-nav-link>
+
+            @endif
+
         </div>
+
     </div>
 </nav>

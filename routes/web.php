@@ -73,6 +73,20 @@ Route::get(
 )->name('assets.mine');
 
 
+Route::get(
+'/incoming-bookings',
+[
+BookingController::class,
+'incoming'
+]
+
+)->middleware('auth')
+
+->name(
+'bookings.incoming'
+);
+
+
 
 
 require __DIR__.'/auth.php';
