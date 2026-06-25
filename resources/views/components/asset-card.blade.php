@@ -1,9 +1,12 @@
 <div
     class="
         bg-white
-        rounded-xl
-        shadow
+        rounded-2xl
         overflow-hidden
+        shadow-md
+        hover:shadow-xl
+        transition
+        duration-300
     "
 >
 
@@ -12,51 +15,112 @@
 
     <img
         src="{{ asset('storage/' . $asset->cover_photo) }}"
-        class="w-full h-60 object-cover"
+        class="
+            w-full
+            h-60
+            object-cover
+        "
     >
 
 @endif
 
 
-<div class="p-5">
+<div class="p-6">
 
-    <h2 class="text-xl font-bold">
-        {{ $asset->title }}
-    </h2>
+    <div class="flex justify-between items-center">
+
+        <h2
+            class="
+                text-xl
+                font-bold
+            "
+        >
+            {{ $asset->title }}
+        </h2>
 
 
-    <p class="text-green-600 text-lg mt-2">
+        <span
+            class="
+                bg-green-100
+                text-green-700
+                px-3
+                py-1
+                rounded-full
+                text-sm
+            "
+        >
+
+            {{ $asset->status }}
+
+        </span>
+
+    </div>
+
+
+    <p
+        class="
+            text-3xl
+            font-bold
+            text-blue-600
+            mt-4
+        "
+    >
+
         ${{ $asset->price_per_day }}
+
+        <span
+            class="
+                text-sm
+                text-gray-500
+            "
+        >
+
+            / day
+
+        </span>
+
     </p>
 
 
-    <div class="flex gap-3 mt-5">
+    <div
+        class="
+            flex
+            gap-3
+            mt-6
+        "
+    >
 
         <a
             href="{{ route('assets.show', $asset->id) }}"
             class="
-                bg-blue-500
+                flex-1
+                text-center
+                bg-gray-900
                 text-white
-                px-4
-                py-2
-                rounded
+                py-3
+                rounded-xl
             "
         >
+
             View
+
         </a>
 
 
         <a
             href="{{ route('bookings.create', $asset->id) }}"
             class="
-                bg-green-500
+                flex-1
+                text-center
+                bg-blue-600
                 text-white
-                px-4
-                py-2
-                rounded
+                py-3
+                rounded-xl
             "
         >
+
             Book
+
         </a>
 
     </div>
