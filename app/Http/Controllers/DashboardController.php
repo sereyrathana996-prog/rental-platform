@@ -12,31 +12,31 @@ class DashboardController extends Controller
     public function index()
     {
         $totalAssets =
-        Asset::count();
+            \App\Models\Asset::count();
 
-        $bookings =
-        Booking::count();
+        $totalBookings =
+            \App\Models\Booking::count();
 
-        $approved =
-        Booking::where(
-            'status',
-            'approved'
-        )->count();
+        $pendingBookings =
+            \App\Models\Booking::where(
+                'status',
+                'pending'
+            )->count();
 
         $revenue =
-        Booking::where(
-            'status',
-            'approved'
-        )->sum(
-            'total_price'
-        );
+            \App\Models\Booking::where(
+                'status',
+                'approved'
+            )->sum(
+                'total_price'
+            );
 
         return view(
             'dashboard',
             compact(
                 'totalAssets',
-                'bookings',
-                'approved',
+                'totalBookings',
+                'pendingBookings',
                 'revenue'
             )
         );

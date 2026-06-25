@@ -29,7 +29,7 @@ Bookings
 </h3>
 
 <p class="text-4xl font-bold mt-3">
-{{ $bookings }}
+{{ $totalBookings }}
 </p>
 
 </div>
@@ -37,11 +37,11 @@ Bookings
 <div class="bg-white rounded-xl shadow p-6">
 
 <h3 class="text-gray-500">
-Approved
+Pending
 </h3>
 
 <p class="text-4xl font-bold mt-3 text-green-600">
-{{ $approved }}
+{{ $pendingBookings }}
 </p>
 
 </div>

@@ -28,9 +28,54 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+        <main>
+
+            @if(session('success'))
+
+            <div
+            class="
+            max-w-7xl
+            mx-auto
+            mt-6
+            bg-green-100
+            text-green-700
+            px-6
+            py-4
+            rounded-xl
+            "
+            >
+
+            {{ session('success') }}
+
+            </div>
+
+            @endif
+
+            @if(session('error'))
+
+            <div
+            class="
+            max-w-7xl
+            mx-auto
+            mt-6
+            bg-red-100
+            text-red-700
+            px-6
+            py-4
+            rounded-xl
+            "
+            >
+
+            {{ session('error') }}
+
+            </div>
+
+            @endif
+
+            {{ $slot }}
+
+        </main>
+
         </div>
     </body>
 </html>

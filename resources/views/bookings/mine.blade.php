@@ -14,6 +14,42 @@ My Bookings
 
 </h1>
 
+<form class="flex gap-3 mb-8">
+
+<button
+name="status"
+value=""
+class="px-4 py-2 rounded bg-gray-200"
+>
+All
+</button>
+
+<button
+name="status"
+value="pending"
+class="px-4 py-2 rounded bg-yellow-400"
+>
+Pending
+</button>
+
+<button
+name="status"
+value="approved"
+class="px-4 py-2 rounded bg-green-500 text-white"
+>
+Approved
+</button>
+
+<button
+name="status"
+value="rejected"
+class="px-4 py-2 rounded bg-red-500 text-white"
+>
+Rejected
+</button>
+
+</form>
+
 
 <div
 class="
@@ -113,7 +149,29 @@ bg-yellow-100 text-yellow-700
 @endif
 ">
 
+<span
+class="
+inline-block
+mt-4
+px-4
+py-2
+rounded-full
+
+@if($booking->status=='pending')
+bg-yellow-100 text-yellow-700
+
+@elseif($booking->status=='approved')
+bg-green-100 text-green-700
+
+@else
+bg-red-100 text-red-700
+@endif
+"
+>
+
 {{ ucfirst($booking->status) }}
+
+</span>
 
 </span>
 

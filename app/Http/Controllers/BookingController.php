@@ -169,7 +169,12 @@ class BookingController extends Controller
         ]);
 
 
-        return back();
+        return back()
+
+        ->with(
+        'success',
+        'Booking approved'
+        );
     }
 
     public function reject(
@@ -181,20 +186,35 @@ class BookingController extends Controller
             'rejected'
         ]);
 
-        return back();
+        return back()
+
+        ->with(
+        'success',
+        'Booking rejected'
+        );
     }
 
-    public function mine()
+   public function mine(Request $request)
     {
+        $query =
+            auth()
+            ->user()
+            ->bookings()
+            ->with('asset');
+
+        if ($request->status) {
+
+            $query->where(
+                'status',
+                $request->status
+            );
+
+        }
+
         $bookings =
-        Booking::where(
-            'renter_id',
-            auth()->id()
-        )
-        ->with(
-            'asset'
-        )
-        ->get();
+            $query
+            ->latest()
+            ->get();
 
         return view(
             'bookings.mine',
